@@ -72,44 +72,6 @@ new Vue({
         this.input_decoded({currentTarget: {value: 'https://example.com/path/to/page.html?a=1&b=2&c=3'}});
     }
 });
-
-// https://codesandbox.io/embed/4mrnhq
-function modal_open(elem)
-{
-    const html = document.documentElement;
-    const w = getScrollbarWidth();
-    if (w) {
-        html.style.setProperty('--pico-scrollbar-width', `${w}px`);
-    }
-    html.classList.add('modal-is-open', 'modal-is-opening');
-    setTimeout(() => html.classList.remove('modal-is-opening'), 400);
-    elem.showModal();
-}
-
-// https://codesandbox.io/embed/4mrnhq
-function modal_close(elem)
-{
-    const html = document.documentElement;
-    html.classList.add('modal-is-closing');
-    setTimeout(tick, 400);
-    function tick() {
-        html.classList.remove('modal-is-closing', 'modal-is-open');
-        html.style.removeProperty('--pico-scrollbar-width');
-        elem.close();
-    }
-}
-
-// https://codesandbox.io/embed/4mrnhq
-function getScrollbarWidth()
-{
-    return window.innerWidth - document.documentElement.clientWidth;
-}
-
-// https://codesandbox.io/embed/4mrnhq
-function isScrollbarVisible()
-{
-    return document.body.scrollHeight > screen.height;
-}
 </script>
 
 </body>
