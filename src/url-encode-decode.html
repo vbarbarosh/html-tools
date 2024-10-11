@@ -15,14 +15,14 @@
 <section>
     <fieldset>
         <label>
-            url.encode
-            <textarea v-on:input="input_encoded" v-bind:value="encoded" rows="5"></textarea>
+            url.decoded
+            <textarea v-on:input="input_decoded" v-bind:value="decoded" rows="5"></textarea>
         </label>
     </fieldset>
     <fieldset>
         <label>
-            url.decode
-            <textarea v-on:input="input_decoded" v-bind:value="decoded" rows="5"></textarea>
+            url.encoded
+            <textarea v-on:input="input_encoded" v-bind:value="encoded" rows="5"></textarea>
         </label>
     </fieldset>
     <template v-if="decoded.match(/^https?:/)">
@@ -37,7 +37,8 @@
     <hr class="xm">
     <article class="xm xbr">
         <div class="r container">
-            <strong>url-encode-decode</strong>
+            <a href="base64-encode-decode.html">base64-encode-decode</a>
+            | <strong>url-encode-decode</strong>
             | <a href="html-encode-decode.html">html-encode-decode</a>
             | <a href="white.html">white</a>
             | <a href="lipsum-shuffle.html">lipsum-shuffle</a>

@@ -6,22 +6,23 @@
     <meta name="color-scheme" content="light dark" />
     <link href="https://unpkg.com/@picocss/pico@2.0.6/css/pico.css" rel="stylesheet">
     <link href="https://unpkg.com/@vbarbarosh/smcss@0.10.0/dist/sm.css" rel="stylesheet">
-    <title>html-encode-decode</title>
+    <title>base64-encode-decode</title>
 </head>
 <body>
 
 <main id="app" class="container">
 
 <section>
+    <mark v-if="error" class="abs-ct">⚠️ {{ error }}</mark>
     <fieldset>
         <label>
-            html.decoded
+            base64.decoded
             <textarea v-on:input="input_decoded" v-bind:value="decoded" rows="5"></textarea>
         </label>
     </fieldset>
     <fieldset>
         <label>
-            html.encoded
+            base64.encoded
             <textarea v-on:input="input_encoded" v-bind:value="encoded" rows="5"></textarea>
         </label>
     </fieldset>
@@ -37,9 +38,9 @@
     <hr class="xm">
     <article class="xm xbr">
         <div class="r container">
-            <a href="base64-encode-decode.html">base64-encode-decode</a>
+            <strong>base64-encode-decode</strong>
             | <a href="url-encode-decode.html">url-encode-decode</a>
-            | <strong>html-encode-decode</strong>
+            | <a href="html-encode-decode.html">html-encode-decode</a>
             | <a href="white.html">white</a>
             | <a href="lipsum-shuffle.html">lipsum-shuffle</a>
         </div>
@@ -56,21 +57,34 @@ new Vue({
     data: {
         encoded: '',
         decoded: '',
+        error: null,
     },
     methods: {
         input_encoded: function (event) {
-            const {value} = event.currentTarget;
-            this.encoded = value;
-            this.decoded = he.decode(value);
+            try {
+                const {value} = event.currentTarget;
+                this.encoded = value;
+                this.decoded = atob(value);
+                this.error = null;
+            }
+            catch (error) {
+                this.error = error;
+            }
         },
         input_decoded: function (event) {
-            const {value} = event.currentTarget;
-            this.encoded = he.encode(value, {useNamedReferences: true});
-            this.decoded = value;
+            try {
+                const {value} = event.currentTarget;
+                this.encoded = btoa(value);
+                this.decoded = value;
+                this.error = null;
+            }
+            catch (error) {
+                this.error = error;
+            }
         },
     },
     created: function () {
-        this.input_decoded({currentTarget: {value: '<div>Hello</div>\n'}});
+        this.input_decoded({currentTarget: {value: 'https://example.com/path/to/page.html?a=1&b=2&c=3'}});
     }
 });
 </script>
